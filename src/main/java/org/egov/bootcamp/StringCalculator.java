@@ -1,16 +1,21 @@
 package org.egov.bootcamp;
 
-import java.util.regex.Pattern;
+import java.util.Arrays;
+import java.util.List;
 
 import org.egov.bootcamp.exception.InValidInputException;
 
 public class StringCalculator {
-	Pattern pattern = Pattern.compile("^([0-9])+|([0-9][+][0-9])+$");
-	
+	private final String valid_pattern = "^\\d+(?>\\+\\d+)*$";
+
 	public int calculate(String expression) {
-		expression = expression.trim();
-		if (!Pattern.matches(pattern.pattern(), expression))
+		expression = expression.replaceAll("\\s", "");
+		if (!expression.matches(valid_pattern))
 			throw new InValidInputException();
-		return Integer.parseInt(expression);
+
+		List<String> operands = Arrays.asList(expression.split("\\+"));
+		return operands.stream()
+				.map((operand) -> Integer.parseInt(operand))
+				.mapToInt(Integer::intValue).sum();
 	}
 }

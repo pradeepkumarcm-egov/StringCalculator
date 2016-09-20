@@ -64,10 +64,17 @@ public class StringCalculatorTest {
 	}
 
 	@Test
-	public void shouldReturnAppropriateValue() {
+	public void shouldReturnAppropriateValueOnAddittion() {
 		StringCalculator calculator = new StringCalculator();
 
-		assertEquals(3, calculator.calculate("1+2"));
+		assertEquals(10, calculator.calculate("1+9"));
+		assertEquals(10, calculator.calculate(" 1+9"));
+		assertEquals(10, calculator.calculate("1    +9"));
+		assertEquals(10, calculator.calculate("1+ 9"));
+		assertEquals(27, calculator.calculate("1+9+9+8 "));
+		assertEquals(10, calculator.calculate("    1    +     9    "));
 	}
+
+
 
 }
