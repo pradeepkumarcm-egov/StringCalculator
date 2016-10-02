@@ -28,13 +28,15 @@ public class StackTest {
 	@Test
 	public void shouldReturnStackSizeOnInsertion() throws Exception {
 		StackImpl<String> stack= new StackImpl<String>();
+		assertEquals(0, stack.size());
 		stack.push("A");
+		assertEquals(1, stack.size());
 		stack.push("B");
 		stack.push("C");
 		assertEquals(3, stack.size());
 		
 	}
-
+	
 	@Test
 	public void shouldReturnStackArray() throws Exception {
 		StackImpl<Object> stack= new StackImpl<Object>();
@@ -62,6 +64,14 @@ public class StackTest {
 		assertEquals(false, stack.contains("C"));
 		thrown.expect(NullPointerException.class);
 		 stack.contains(null);
+	}
+	
+	@Test
+	public void shouldPopTheLastInsertedElement() throws Exception {
+		StackImpl<Object> stack= new StackImpl<Object>();
+		stack.push("A");
+		stack.push("B");
+		assertEquals("B", stack.pop());
 	}
 }
 

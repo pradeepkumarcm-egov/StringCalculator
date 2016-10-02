@@ -14,8 +14,8 @@ public class StackImpl<T> implements Stack<T> {
     	if(ele==null) throw new NullPointerException();
         Node current = first;
         first = new Node();
-        first.ele = ele;
-        first.next = current;
+        first.setEle(ele);
+        first.setNext(current); 
         total++;
         return this;
     }
@@ -23,22 +23,26 @@ public class StackImpl<T> implements Stack<T> {
     public T pop()
     {
         if (first == null) return null;
-        T ele = first.ele;
-        first = first.next;
+        T ele = first.getEle();
+        first = first.getNext();
         total--;
         return ele;
     }
 
-	public int size(Node listPointer, int totalLength) {
-		if (listPointer == null) {
+	public int size() {
+		int totalLength=0;
+		Node current = first;
+		if (current == null) {
 			return totalLength;
 		}
-		return size(listPointer.next, ++totalLength);
+		totalLength++;
+		while(current.getNext()!=null){
+			current=current.getNext();
+			totalLength++;
+			}
+		return totalLength;
 	}
 
-	public int size() {
-		return size(first, 0);
-	}
 	public boolean isEmpty() {
 		return (size()>0?false:true);
 	}
@@ -48,8 +52,8 @@ public class StackImpl<T> implements Stack<T> {
 		T[] array = (T[]) new Object[listLength];
 		Node listPointer = first;
 		for (int i = 0; i < listLength; i++) {
-			array[i] = (T) listPointer.ele;
-			listPointer = listPointer.next;
+			array[i] = (T) listPointer.getEle();
+			listPointer = listPointer.getNext();
 		}
 		return array;
 	}
@@ -60,12 +64,12 @@ public class StackImpl<T> implements Stack<T> {
 		int listLength = this.size();
 		Node listPointer = first;
 	     	for (int i = 0; i < listLength; i++) {
-	    		T existing=(T) listPointer.ele;
+	    		T existing=(T) listPointer.getEle();
 	    		if(existing.equals(ele))
 	    		{
 	    			return true;
 	    		}
-				listPointer = listPointer.next;
+				listPointer = listPointer.getNext();
 	    	}
 	return false;
 	}
@@ -76,8 +80,8 @@ public class StackImpl<T> implements Stack<T> {
         StringBuilder sb = new StringBuilder();
         Node tmp = first;
         while (tmp != null) {
-            sb.append(tmp.ele).append("");
-            tmp = tmp.next;
+            sb.append(tmp.getEle()).append("");
+            tmp = tmp.getNext();
         }
         return sb.toString();
     }
